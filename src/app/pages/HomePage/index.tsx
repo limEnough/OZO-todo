@@ -28,7 +28,29 @@ const Title = styled.h1`
 const TodoList = styled.div``;
 
 export function HomePage() {
+  const [todoList, setTodoList] = React.useState<TodoItem[]>([
+    {
+      id: '1',
+      completed: false,
+      content: '투두입니다1',
+      editing: false,
+    },
+    {
+      id: '2',
+      completed: false,
+      content: '투두입니다2',
+      editing: false,
+    },
+    {
+      id: '3',
+      completed: true,
+      content: '투두입니다3',
+      editing: false,
+    },
+  ]);
+
   return (
+    // 빈 태그는단순하게 컴포넌트를 코드상으로 연결해둔 것
     <>
       <Helmet>
         <title>Main</title>
@@ -40,25 +62,15 @@ export function HomePage() {
           {/* 타이틀 */}
           <Title>할 일</Title>
           {/* 입력 영역 */}
-          <TodoInput></TodoInput>
+          <TodoInput
+            setTodoList={(todo: TodoItem) => setTodoList([todo, ...todoList])}
+          ></TodoInput>
           {/* 리스트 */}
           <TodoList>
-            <TodoItem
-              todo={{
-                id: '1',
-                completed: false,
-                content: '투두입니다1',
-                editing: false,
-              }}
-            ></TodoItem>
-            <TodoItem
-              todo={{
-                id: '2',
-                completed: true,
-                content: '투두입니다2',
-                editing: false,
-              }}
-            ></TodoItem>
+            {/* 아이템 */}
+            {todoList.map(todo => (
+              <TodoItem todo={todo} key={todo.id}></TodoItem>
+            ))}
           </TodoList>
         </Box>
       </Wrapper>
