@@ -24,7 +24,6 @@ const TodoContent = styled.span<{ checked: boolean }>`
 `;
 
 export default function TodoItem({ todo }: { todo: TodoItem }) {
-  // 빈 태그는단순하게 컴포넌트를 코드상으로 연결해둔 것
   return (
     <Box>
       <Checkbox checked={todo.completed}></Checkbox>
