@@ -1,9 +1,13 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
 import { TodoState } from './types';
 import { useInjectReducer } from 'redux-injectors';
+import {
+  loadTodoData,
+  saveTodoData,
+} from 'app/components/TodoInput/localStorage';
 
 export const initailState: TodoState = {
-  todoList: [],
+  todoList: loadTodoData(),
 };
 
 const slice = createSlice({
@@ -13,6 +17,7 @@ const slice = createSlice({
     addTodo: {
       reducer: (state, action: PayloadAction<TodoItem>) => {
         state.todoList.push(action.payload);
+        saveTodoData(state.todoList);
       },
       // 입력한 todo 콘텐츠를 받아 todo object 반환
       prepare: (content: string) => {
@@ -32,6 +37,7 @@ const slice = createSlice({
       const todo = state.todoList.find(todo => todo.id === id);
 
       if (todo) todo.completed = !todo.completed;
+      saveTodoData(state.todoList);
     },
     editModeTodo(state, action: PayloadAction<{ id: string }>) {
       const id = action.payload.id;
@@ -52,6 +58,7 @@ const slice = createSlice({
 
       if (todo) {
         todo.content = content;
+        saveTodoData(state.todoList);
       }
     },
     deleteTodo(state, action: PayloadAction<{ id: string }>) {
@@ -59,6 +66,7 @@ const slice = createSlice({
       const filteredTodos = state.todoList.filter(todo => todo.id !== id);
 
       state.todoList = filteredTodos;
+      saveTodoData(state.todoList);
     },
   },
 });
