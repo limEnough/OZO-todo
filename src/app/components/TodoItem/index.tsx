@@ -42,6 +42,7 @@ export default function TodoItem({ todo }: { todo: TodoItem }) {
       {/* 콘텐츠 */}
       <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
         <Checkbox checked={todo.completed}></Checkbox>
+        {/* input coomponent 의 쉬운 재사용을 위한 style 용도의 컴포넌트 */}
         <Block marginLeft="10px"></Block>
         {todo.editing ? (
           <TodoInput></TodoInput>

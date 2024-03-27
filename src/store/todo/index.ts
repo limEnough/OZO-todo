@@ -16,7 +16,7 @@ const slice = createSlice({
       },
       // 입력한 todo 콘텐츠를 받아 todo object 반환
       prepare: (content: string) => {
-        const id = nanoid();
+        const id = nanoid(); // nanoid: redux 내장 함수
         return {
           payload: {
             id,
@@ -26,43 +26,44 @@ const slice = createSlice({
           },
         };
       },
-      checkTodo(state, action: PayloadAction<{ id: string }>) {
-        const id = action.payload.id;
-        const todo = state.todoList.find(todo => todo.id === id);
+    },
+    checkTodo(state, action: PayloadAction<{ id: string }>) {
+      const id = action.payload.id;
+      const todo = state.todoList.find(todo => todo.id === id);
 
-        if (todo) todo.completed = !todo.completed;
-      },
-      editModeTodo(state, action: PayloadAction<{ id: string }>) {
-        const id = action.payload.id;
+      if (todo) todo.completed = !todo.completed;
+    },
+    editModeTodo(state, action: PayloadAction<{ id: string }>) {
+      const id = action.payload.id;
 
-        // editing 모드의 todo를 모두 찾아 false로 변경! 현재 id의 todo 하나만 수정하게 하기 위함
-        for (const todo of state.todoList) {
-          if (todo.id === id) continue;
-          if (todo.editing === true) todo.editing = false;
-        }
+      // editing 모드의 todo를 모두 찾아 false로 변경! 현재 id의 todo 하나만 수정하게 하기 위함
+      for (const todo of state.todoList) {
+        if (todo.id === id) continue;
+        if (todo.editing === true) todo.editing = false;
+      }
 
-        const todo = state.todoList.find(todo => todo.id === id);
-        if (todo) todo.editing = !todo.editing;
-      },
-      editTodo(state, action: PayloadAction<{ id: string; content: string }>) {
-        const id = action.payload.id;
-        const content = action.payload.content;
-        const todo = state.todoList.find(todo => todo.id === id);
+      const todo = state.todoList.find(todo => todo.id === id);
+      if (todo) todo.editing = !todo.editing;
+    },
+    editTodo(state, action: PayloadAction<{ id: string; content: string }>) {
+      const id = action.payload.id;
+      const content = action.payload.content;
+      const todo = state.todoList.find(todo => todo.id === id);
 
-        if (todo) {
-          todo.content = content;
-        }
-      },
-      deleteTodo(state, action: PayloadAction<{ id: string }>) {
-        const id = action.payload.id;
-        const filteredTodos = state.todoList.filter(todo => todo.id !== id);
+      if (todo) {
+        todo.content = content;
+      }
+    },
+    deleteTodo(state, action: PayloadAction<{ id: string }>) {
+      const id = action.payload.id;
+      const filteredTodos = state.todoList.filter(todo => todo.id !== id);
 
-        state.todoList = filteredTodos;
-      },
+      state.todoList = filteredTodos;
     },
   },
 });
 
+// 만들어놓은 슬라이스를 전역으로 사용하기 위함
 export const { actions: TodoActions } = slice;
 export const useTodoSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
