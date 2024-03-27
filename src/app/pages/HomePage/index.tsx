@@ -1,3 +1,6 @@
+/**
+ * MEMO: 페이지를 구성하는 index
+ */
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
@@ -28,12 +31,13 @@ const Title = styled.h1`
 const TodoList = styled.div``;
 
 export function HomePage() {
+  // Todo 데이터 샘플 기본값
   const [todoList, setTodoList] = React.useState<TodoItem[]>([
     {
       id: '1',
       completed: false,
       content: '투두입니다1',
-      editing: false,
+      editing: true,
     },
     {
       id: '2',
@@ -52,6 +56,7 @@ export function HomePage() {
   return (
     // 빈 태그는단순하게 컴포넌트를 코드상으로 연결해둔 것
     <>
+      {/* 웹 문서의 헤더 값을 변경할 때 사용하는 리액트 컴포넌트 */}
       <Helmet>
         <title>Main</title>
         <meta name="description" content="Todo Main" />
