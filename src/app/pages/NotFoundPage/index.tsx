@@ -25,7 +25,7 @@ export function NotFoundPage() {
 }
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  margin-top: -8vh;
+  margin-top: -8dvh;
   font-weight: bold;
   color: black;
   font-size: 3.375rem;

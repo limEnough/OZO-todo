@@ -12,7 +12,7 @@ import { TodoListSelector } from 'store/todo/selectors';
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +25,11 @@ const Box = styled.div`
   background: #fff;
   box-shadow: 0px 25px 100px -60px rgba(0, 0, 0, 0.18);
   border-radius: 15px;
+
+  @media (max-width: 425px) {
+    width: 100%;
+    height: 100dvh;
+  }
 `;
 
 const Title = styled.h1`
@@ -32,7 +37,14 @@ const Title = styled.h1`
   padding: 15px 25px;
 `;
 
-const TodoList = styled.div``;
+const TodoList = styled.div`
+  overflow-y: auto;
+  height: 450px;
+
+  @media (max-width: 425px) {
+    height: calc() (100dvh - 128px);
+  }
+`;
 
 export function HomePage() {
   const { TodoActions } = useTodoSlice();
