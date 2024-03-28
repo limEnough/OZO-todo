@@ -24,6 +24,9 @@ import { configureAppStore } from 'store/configureStore';
 
 import reportWebVitals from 'reportWebVitals';
 
+// serviceWorker
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+
 // Initialize languages
 import './locales/i18n';
 
@@ -48,6 +51,8 @@ if (module.hot) {
     // No need to render the App again because i18next works with the hooks
   });
 }
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
